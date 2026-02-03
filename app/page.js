@@ -1,65 +1,127 @@
-import Image from "next/image";
+import Header from "@/components/Header";
+import TechSoundGate from "@/components/TechSoundGate";
+import FloatingLeafWave from "@/components/FloatingLeafWave";
+import MissionStrip from "@/components/MissionStrip";
+import SegmentMenu from "@/components/SegmentMenu";
+import VideoCard from "@/components/VideoCard";
+import Testimonials from "@/components/Testimonials";
+import LogosMarquee from "@/components/LogosMarquee";
+import ContactForm from "@/components/ContactForm";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="relative overflow-hidden min-h-screen">
+      <div className="absolute inset-0 tech-grid opacity-60 pointer-events-none" />
+      <TechSoundGate />
+      <FloatingLeafWave />
+      <Header />
+
+      {/* missão + carrossel */}
+      <MissionStrip />
+
+      {/* HERO */}
+      <section className="mx-auto max-w-6xl px-4 pt-10 pb-10">
+        <div className="grid gap-10 md:grid-cols-2 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs neon-border bg-black/30">
+              <span className="h-2 w-2 rounded-full bg-[var(--c6)] animate-pulse" />
+              Operação comercial em alta performance
+            </div>
+
+            <h1 className="mt-4 text-4xl md:text-5xl font-semibold leading-tight">
+              Conheça nossa mais nova{" "}
+              <span className="text-[var(--c6)]">coleta de dados</span> com{" "}
+              <span className="inline-flex items-center gap-2">
+                <img src="/placeholder/bi.svg" alt="BI" className="h-6 w-6" />
+                <span className="text-[var(--c6)]">BI</span>
+              </span>
+            </h1>
+
+            <p className="mt-4 text-white/80 leading-relaxed">
+              CRM + IA + Performance em uma única operação, com processos claros,
+              velocidade no atendimento e previsibilidade.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="#contato"
+                className="rounded-2xl px-5 py-3 font-medium bg-[var(--c3)] text-black hover:opacity-90 transition"
+              >
+                Quero estruturar meu comercial
+              </a>
+              <a
+                href="#segmentos"
+                className="rounded-2xl px-5 py-3 font-medium neon-border glow hover:bg-white/5 transition"
+              >
+                Ver segmentos
+              </a>
+            </div>
+
+            <div id="segmentos" className="mt-10">
+              <div className="text-sm text-white/70 mb-2">Nossos Segmentos</div>
+              <SegmentMenu />
+            </div>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden neon-border glow bg-black/20 h-[360px] md:h-[420px] flex items-center justify-center text-white/60">
+            (Área do BI / imagem)
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Vídeo principal (adicione src quando tiver) */}
+      <VideoCard
+        subtitle="Demonstração"
+        title="Vídeo central com visual tech"
+        src="" 
+        poster=""
+        autoPlayOnView
+      />
+
+      {/* Missão + imagem */}
+      <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid gap-8 md:grid-cols-2 items-center neon-border glow rounded-2xl bg-black/30 p-6">
+          <div className="rounded-2xl neon-border bg-black/35 h-[260px] flex items-center justify-center text-white/60">
+            (Imagem missão aqui)
+          </div>
+
+          <div>
+            <div className="text-xs tracking-[0.35em] uppercase text-white/60">
+              Sobre a Crescer
+            </div>
+            <h3 className="mt-2 text-2xl font-semibold">
+              Estratégia, tecnologia e execução
+            </h3>
+            <p className="mt-3 text-white/80 leading-relaxed">
+              Criamos operações que vendem: atendimento rápido, processo claro, automações
+              inteligentes e visão em dados. O objetivo é tirar o “achismo” e colocar controle,
+              previsibilidade e crescimento no comercial.
+            </p>
+
+            <ul className="mt-4 space-y-2 text-sm text-white/75">
+              <li>• Resposta imediata + qualificação</li>
+              <li>• CRM organizado por funil e regras</li>
+              <li>• IA para atendimento e triagem</li>
+              <li>• BI e relatórios para decisão</li>
+            </ul>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* SDR Helena + vídeo */}
+      <VideoCard
+        subtitle="SDR IA"
+        title="Nossa SDR criou vida — já adquiriu a sua?"
+        src=""
+        poster=""
+        autoPlayOnView
+      />
+
+      <Testimonials />
+      <LogosMarquee />
+      <ContactForm />
+      <Footer />
+    </main>
   );
 }
