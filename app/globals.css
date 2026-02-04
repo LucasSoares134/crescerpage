@@ -71,28 +71,48 @@ body{
 .leafWave{
   position:absolute;
   top: 110px;
-  left: -120px;
+  left: -140px;
   animation: leafMove 8s ease-in-out infinite;
   filter: drop-shadow(0 0 18px rgba(81,254,97,.25));
+  opacity: .9;
+  pointer-events: none;
 }
 
 .textWave{
   position:absolute;
   top: 118px;
-  left: -140px;
+  left: -160px;
   animation: leafMove 8s ease-in-out infinite;
-  opacity: .16;
+  opacity: .14;
   font-weight: 700;
   letter-spacing: .35em;
+  pointer-events: none;
 }
 
 .textWaveText{
   display:inline-block;
-  transform: translateX(110px);
+  transform: translateX(130px);
+  color: rgba(81,254,97,.75);
+  text-shadow: 0 0 18px rgba(81,254,97,.2);
 }
 
 @keyframes leafMove{
   0%   { transform: translateX(0px); }
-  50%  { transform: translateX(calc(100vw + 240px)); }
+  50%  { transform: translateX(calc(100vw + 320px)); }
   100% { transform: translateX(0px); }
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marqueeTrack {
+  display: inline-flex;
+  gap: 18px;
+  animation: marquee 18s linear infinite;
 }
