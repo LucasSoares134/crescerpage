@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root{
   --c1:#04270A;
@@ -9,52 +11,90 @@
   --c6:#51FE61;
 }
 
-html, body { height: 100%; }
-body{
-  background:
-    radial-gradient(1200px 800px at 20% 10%, rgba(30,191,53,.15), transparent 60%),
-    radial-gradient(900px 700px at 80% 20%, rgba(81,254,97,.10), transparent 55%),
-    var(--c5);
+html, body {
+  height: 100%;
+  background: var(--c5);
 }
 
-/* Grid overlay */
-.grid-bg{
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  pointer-events: none;
+body{
+  color: #fff;
 }
-.grid-bg::before{
+
+/* ---------- UI helpers ---------- */
+@layer components{
+  .card{
+    @apply rounded-3xl border border-white/10 bg-black/25 shadow-[0_0_0_1px_rgba(81,254,97,.08)] backdrop-blur-xl;
+  }
+
+  .btn{
+    @apply inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-medium transition;
+  }
+
+  .btn-ghost{
+    @apply border border-white/10 bg-white/5 text-white/85 hover:bg-white/10;
+  }
+
+  .btn-primary{
+    @apply bg-[var(--c3)] text-black hover:brightness-110;
+  }
+}
+
+/* ---------- Background tech grid ---------- */
+.bgTech{
+  position: relative;
+  isolation: isolate;
+}
+
+.bgTech::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(900px 600px at 15% 10%, rgba(81,254,97,.18), transparent 55%),
+    radial-gradient(800px 600px at 85% 15%, rgba(30,191,53,.14), transparent 60%),
+    radial-gradient(900px 700px at 50% 80%, rgba(4,39,10,.35), transparent 60%);
+  z-index:-2;
+}
+
+.bgTech::after{
   content:"";
   position:absolute;
   inset:0;
   background-image:
-    linear-gradient(to right, rgba(81,254,97,.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(81,254,97,.06) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: .28;
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity:.22;
+  z-index:-1;
+  mask-image: radial-gradient(circle at 30% 20%, black 30%, transparent 70%);
 }
-.grid-bg::after{
-  content:"";
+
+/* ---------- Leaf + Text wave ---------- */
+.leafWave{
   position:absolute;
-  inset:-80px;
-  background:
-    radial-gradient(600px 400px at 15% 15%, rgba(81,254,97,.14), transparent 70%),
-    radial-gradient(600px 400px at 85% 25%, rgba(30,191,53,.10), transparent 70%);
-  filter: blur(18px);
-  opacity: .75;
+  top: 110px;
+  left: -120px;
+  animation: leafMove 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(81,254,97,.25));
 }
 
-/* Folha flutuando */
-@keyframes leafFloat{
-  0%   { transform: translateX(-30px) translateY(0) rotate(-6deg); opacity: .35; }
-  50%  { transform: translateX(30px) translateY(6px) rotate(6deg); opacity: .55; }
-  100% { transform: translateX(-30px) translateY(0) rotate(-6deg); opacity: .35; }
+.textWave{
+  position:absolute;
+  top: 118px;
+  left: -140px;
+  animation: leafMove 8s ease-in-out infinite;
+  opacity: .16;
+  font-weight: 700;
+  letter-spacing: .35em;
 }
-.leaf-fx{ animation: leafFloat 6s ease-in-out infinite; }
 
-/* Marquee */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+.textWaveText{
+  display:inline-block;
+  transform: translateX(110px);
+}
+
+@keyframes leafMove{
+  0%   { transform: translateX(0px); }
+  50%  { transform: translateX(calc(100vw + 240px)); }
+  100% { transform: translateX(0px); }
 }
