@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root{
   --c1:#04270A;
@@ -13,10 +11,10 @@
 
 html, body { height: 100%; }
 body{
-  background: radial-gradient(1200px 800px at 20% 10%, rgba(30,191,53,.15), transparent 60%),
-              radial-gradient(900px 700px at 80% 20%, rgba(81,254,97,.10), transparent 55%),
-              var(--c5);
-  color: white;
+  background:
+    radial-gradient(1200px 800px at 20% 10%, rgba(30,191,53,.15), transparent 60%),
+    radial-gradient(900px 700px at 80% 20%, rgba(81,254,97,.10), transparent 55%),
+    var(--c5);
 }
 
 /* Grid overlay */
@@ -40,16 +38,11 @@ body{
   content:"";
   position:absolute;
   inset:-80px;
-  background: radial-gradient(600px 400px at 15% 15%, rgba(81,254,97,.14), transparent 70%),
-              radial-gradient(600px 400px at 85% 25%, rgba(30,191,53,.10), transparent 70%);
+  background:
+    radial-gradient(600px 400px at 15% 15%, rgba(81,254,97,.14), transparent 70%),
+    radial-gradient(600px 400px at 85% 25%, rgba(30,191,53,.10), transparent 70%);
   filter: blur(18px);
   opacity: .75;
-}
-
-/* Blink pro botão Segmentos */
-@keyframes blinkSoft{
-  0%, 100% { box-shadow: 0 0 0 rgba(81,254,97,0); transform: translateY(0); }
-  50%      { box-shadow: 0 0 22px rgba(81,254,97,.12); transform: translateY(-1px); }
 }
 
 /* Folha flutuando */
@@ -58,12 +51,10 @@ body{
   50%  { transform: translateX(30px) translateY(6px) rotate(6deg); opacity: .55; }
   100% { transform: translateX(-30px) translateY(0) rotate(-6deg); opacity: .35; }
 }
-.leaf-fx{
-  animation: leafFloat 6s ease-in-out infinite;
-  filter: blur(0px);
-}
+.leaf-fx{ animation: leafFloat 6s ease-in-out infinite; }
 
-/* Play overlay */
-.play-ring{
-  box-shadow: 0 0 0 1px rgba(81,254,97,.25), 0 0 24px rgba(81,254,97,.10);
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }

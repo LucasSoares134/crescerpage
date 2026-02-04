@@ -18,7 +18,7 @@ export default function Carousel({ slides = [], intervalMs = 2000 }) {
       if (!hovering.current) next();
     }, intervalMs);
     return () => clearInterval(t);
-  }, [intervalMs, total, canRun]);
+  }, [intervalMs, canRun, total]);
 
   const current = slides[idx];
 
@@ -28,12 +28,13 @@ export default function Carousel({ slides = [], intervalMs = 2000 }) {
       onMouseEnter={() => (hovering.current = true)}
       onMouseLeave={() => (hovering.current = false)}
     >
-      <div className="relative w-full h-[260px] md:h-[320px]">
+      {/* Janela RETRATO */}
+      <div className="relative w-full aspect-[4/5] bg-black/50">
         <Image
           src={current?.src || "/Fotos/1.png"}
           alt={current?.alt || "Slide"}
           fill
-          className="object-cover"
+          className="object-contain p-3"
           priority
         />
       </div>
@@ -48,34 +49,32 @@ export default function Carousel({ slides = [], intervalMs = 2000 }) {
         <>
           <button
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 border border-[rgba(81,254,97,.25)] bg-black/50 hover:bg-black/70 transition rounded-full w-10 h-10 grid place-items-center text-white"
+            className="absolute left-3 top-1/2 -translate-y-1/2 border border-[rgba(81,254,97,.25)] bg-black/50 hover:bg-black/70 transition rounded-full w-10 h-10 grid place-items-center"
             aria-label="Anterior"
           >
             ←
           </button>
           <button
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 border border-[rgba(81,254,97,.25)] bg-black/50 hover:bg-black/70 transition rounded-full w-10 h-10 grid place-items-center text-white"
+            className="absolute right-3 top-1/2 -translate-y-1/2 border border-[rgba(81,254,97,.25)] bg-black/50 hover:bg-black/70 transition rounded-full w-10 h-10 grid place-items-center"
             aria-label="Próximo"
           >
             →
           </button>
-        </>
-      )}
 
-      {canRun && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 flex gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIdx(i)}
-              className={`h-2.5 w-2.5 rounded-full transition ${
-                i === idx ? "bg-[#51FE61]" : "bg-white/25"
-              }`}
-              aria-label={`Ir para slide ${i + 1}`}
-            />
-          ))}
-        </div>
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-4 flex gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIdx(i)}
+                className={`h-2.5 w-2.5 rounded-full transition ${
+                  i === idx ? "bg-[#51FE61]" : "bg-white/25"
+                }`}
+                aria-label={`Ir para slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
