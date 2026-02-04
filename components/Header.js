@@ -23,7 +23,7 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* BOTÕES DO TOPO (CANTO DIREITO) */}
+        {/* BOTÕES TOPO DIREITO */}
         <div className="flex items-center gap-3">
           {/* Dropdown Segmentos */}
           <div className="relative group">

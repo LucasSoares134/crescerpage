@@ -38,7 +38,6 @@ export default function Carousel({ slides = [], intervalMs = 2000 }) {
         />
       </div>
 
-      {/* label */}
       {!!current?.label && (
         <div className="absolute left-4 top-4 text-xs text-white/80 border border-[rgba(81,254,97,.25)] bg-black/60 backdrop-blur rounded-full px-3 py-1">
           {current.label}
@@ -64,7 +63,6 @@ export default function Carousel({ slides = [], intervalMs = 2000 }) {
         </>
       )}
 
-      {/* dots */}
       {canRun && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-4 flex gap-2">
           {slides.map((_, i) => (
