@@ -1,84 +1,84 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function Carousel({ slides, intervalMs = 2000 }) {
+export default function Carousel({ slides = [], intervalMs = 2000 }) {
   const [idx, setIdx] = useState(0);
-  const [tick, setTick] = useState(0);
-
+  const hovering = useRef(false);
   const total = slides.length;
+  const canRun = total > 1;
 
-  const next = () => {
-    setIdx((v) => (v + 1) % total);
-    setTick((t) => t + 1);
-  };
-
-  const prev = () => {
-    setIdx((v) => (v - 1 + total) % total);
-    setTick((t) => t + 1);
-  };
-
-  const go = (i) => {
-    setIdx(i);
-    setTick((t) => t + 1);
-  };
+  const next = () => setIdx((p) => (p + 1) % total);
+  const prev = () => setIdx((p) => (p - 1 + total) % total);
 
   useEffect(() => {
+    if (!canRun) return;
     const t = setInterval(() => {
-      setIdx((v) => (v + 1) % total);
+      if (!hovering.current) next();
     }, intervalMs);
     return () => clearInterval(t);
-  }, [intervalMs, total, tick]);
+  }, [intervalMs, total, canRun]);
 
-  const current = useMemo(() => slides[idx], [slides, idx]);
+  const current = slides[idx];
 
   return (
-    <div className="neon-border glow rounded-2xl bg-black/35 overflow-hidden">
-      <div className="relative h-[200px] md:h-[220px]">
+    <div
+      className="relative rounded-2xl overflow-hidden border border-[rgba(81,254,97,.25)] bg-black/30"
+      onMouseEnter={() => (hovering.current = true)}
+      onMouseLeave={() => (hovering.current = false)}
+    >
+      <div className="relative w-full h-[260px] md:h-[320px]">
         <Image
-          src={current.src}
-          alt={current.alt}
+          src={current?.src || "/Fotos/1.png"}
+          alt={current?.alt || "Slide"}
           fill
-          priority
           className="object-cover"
-          onClick={next}
+          priority
         />
+      </div>
 
-        <button
-          onClick={prev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 rounded-xl bg-black/60 neon-border px-3 py-2 text-sm hover:bg-black/80 transition"
-          aria-label="Anterior"
-        >
-          ←
-        </button>
+      {/* label */}
+      {!!current?.label && (
+        <div className="absolute left-4 top-4 text-xs text-white/80 border border-[rgba(81,254,97,.25)] bg-black/60 backdrop-blur rounded-full px-3 py-1">
+          {current.label}
+        </div>
+      )}
 
-        <button
-          onClick={next}
-          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-xl bg-black/60 neon-border px-3 py-2 text-sm hover:bg-black/80 transition"
-          aria-label="Próximo"
-        >
-          →
-        </button>
+      {canRun && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 border border-[rgba(81,254,97,.25)] bg-black/50 hover:bg-black/70 transition rounded-full w-10 h-10 grid place-items-center text-white"
+            aria-label="Anterior"
+          >
+            ←
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-3 top-1/2 -translate-y-1/2 border border-[rgba(81,254,97,.25)] bg-black/50 hover:bg-black/70 transition rounded-full w-10 h-10 grid place-items-center text-white"
+            aria-label="Próximo"
+          >
+            →
+          </button>
+        </>
+      )}
 
-        <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+      {/* dots */}
+      {canRun && (
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-4 flex gap-2">
           {slides.map((_, i) => (
             <button
               key={i}
-              onClick={() => go(i)}
-              className={`h-2 w-2 rounded-full transition ${
-                i === idx ? "bg-[var(--c6)]" : "bg-white/30"
+              onClick={() => setIdx(i)}
+              className={`h-2.5 w-2.5 rounded-full transition ${
+                i === idx ? "bg-[#51FE61]" : "bg-white/25"
               }`}
               aria-label={`Ir para slide ${i + 1}`}
             />
           ))}
         </div>
-      </div>
-
-      <div className="px-4 py-3 text-sm text-white/80">
-        <span className="text-white/60">Resultados:</span>{" "}
-        <span className="font-medium">{current.label}</span>
-      </div>
+      )}
     </div>
   );
 }
